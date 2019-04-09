@@ -4,15 +4,23 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.domain.BaseDomain;
 
 @Entity
 @Table(name="tb_student")
-public class Student extends BaseDomain{
- 
+public class Student extends BaseDomain implements java.io.Serializable{
+	
 	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 用户登录名
 	 */
 	@Column(name="s_user_name")
@@ -21,7 +29,7 @@ public class Student extends BaseDomain{
 	 /**
 	 * 用户密码
 	 */
-	@Column(name="password")
+	@Column(name="s_password")
 	private String password;
 	
 	
@@ -71,11 +79,17 @@ public class Student extends BaseDomain{
      */
 	@Column(name="s_join_date")
     private Date joinDate;
+	
+	
 	public String getUserName() {
 		return userName;
 	}
 
 
+	/**
+	    * 设置学生登录账号
+	 * @param userName
+	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
@@ -96,6 +110,10 @@ public class Student extends BaseDomain{
 	}
 
 
+	/**
+	    * 设置学生真实姓名
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -156,6 +174,10 @@ public class Student extends BaseDomain{
 	}
 
 
+	/**
+	    * 设置入学时间
+	 * @param joinDate
+	 */
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}

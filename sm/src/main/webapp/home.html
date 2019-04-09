@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>主页</title>
+		<link rel="stylesheet" href="css/zTreeStyle.css" typr="text/css" />
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<style>
+			* {
+				margin: 0 auto;
+				padding: 0;
+
+			}
+
+			.toolbar {
+				width: 1300px;
+				height: 50px;
+				background-color: #00B83F;
+			}
+            
+			.toolbar .logo{}
+			
+			.toolbar .user_info{
+				
+			}
+			
+			.content {
+				width: 1300px;
+				height: 600px;
+				/* background-color: yellow; */
+			}
+            
+			.value {
+			   	display: inline-block;
+				width: 100px;
+				text-align: right;
+				margin-right: 20px;
+				margin-bottom: 20px;
+				box-sizing: border-box;
+			}
+			
+			.content .menu {
+				width: 180px;
+				height: 600px;
+				background-color: red;
+				/* margin-left: 20px; */
+				float: left;
+				box-sizing: border-box;
+			}
+
+			.content .menu ul {
+				overflow: hidden;
+			}
+			
+			.content .main {
+				width: 1110px;
+				height: 600px;
+				float: left;
+				/* background-color: green; */
+				margin-left: 10px;
+			}
+		</style>
+	</head>
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.ztree.core.js"></script>
+	<script>
+		var zTreeObj;
+		// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+		var setting = {};
+		// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+		var zNodes = [{
+				name: "test1",
+				open: false,
+				children: [{
+					name: "test1_1"
+				}, {
+					name: "test1_2"
+				}]
+			},
+			{
+				name: "test2",
+				open: false,
+				children: [{
+					name: "test2_1"
+				}, {
+					name: "test2_2"
+				}]
+			}
+		];
+		$(function() {
+			zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		});
+	</script>
+	<body>
+		<div class="toolbar">
+			<div class="logo"></div>
+			<div class="user_info"></div>
+		</div>
+		<div class="content">
+			<div class="menu">
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+			<div class="main">
+				<iframe name="myiframe" id="main" src="home.html" frameborder="0" align="left" width="1110px" height="600px" scrolling="no"></iframe>
+			</div>
+		</div>
+	</body>
+	<script>
+		$(function() {
+			$("#btn_login").click(function() {
+				var user_name = $("#user_name").val();
+				var user_password = $("#user_password").val();
+				if (user_name == "") {
+					alert("请输入用户名!");
+					return;
+				}
+				if (user_password == "") {
+					alert("请输入用户密码!");
+					return;
+				}
+
+				$.ajax({
+					url: 'http://localhost:8080/sm/loginController',
+					type: "post",
+					data:{
+						'user_name':user_name,
+						'user_password':user_password
+					},
+					dataType: 'json',
+					success: function(data) {
+						console.log(data);
+						if(data != null){
+							var user = data.resultObj.userName;
+							console.log('user is '+user);
+							
+						}
+						alert('成功!!!');
+					},
+					error:function(data){
+						console.log("失败!!");
+					}
+				});
+			});
+
+		});
+	</script>
+</html>
